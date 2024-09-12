@@ -1,6 +1,19 @@
+"use client"
+
 import Link from "next/link";
 
 export default function LoginPage() {
+    const hendleLogin =  (e: any) => {
+        e.preventDefault();
+        fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+                email: e.target.email.value,
+                password: e.target.password.value
+            }),
+        })
+    };
+
     return (
     <div className="h-screen w-100 flex justify-center items-center">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -10,7 +23,7 @@ export default function LoginPage() {
                 </h3>
             </div>
             <div className="p-4 md:p-5">
-                <form className="space-y-4" action="#">
+                <form className="space-y-4" onSubmit={(e) =>hendleLogin(e) }>
                     <div>
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
                         <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required />
